@@ -5,7 +5,8 @@ body {
   line-height: 1.5;
 }
 body, .app {
-  background: white;
+  background: #777;
+  text-align: center;
 }
 
 /* main page */

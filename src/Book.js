@@ -6,9 +6,7 @@ import Overdrive from 'react-overdrive';
 
 const Book = ({ book }) => (
   <div>
-    <p>
-      {book.title}
-    </p>
+    <Cover src={book.imageLinks.thumbnail} alt={book.title} />
   </div>
 );
 
@@ -19,3 +17,9 @@ Book.propTypes = {
     title: PropTypes.string.isRequired,
   }).isRequired,
 };
+
+export const Cover = styled.img`
+  box-shadow: 0 0 35px;
+  height: 205px;
+  width: 165px;
+`;
