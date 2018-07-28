@@ -91,8 +91,8 @@ const ShelvTitle = styled.h1`
   &:after {
     content:'';
     display:block;
-    height:0.2em;
-    width:35%;
+    height:0.4em;
+    width:25%;
     margin:auto;
     border-bottom:solid ;
   }
