@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Book from './Book.js';
 import * as BooksAPI from './BooksAPI';
@@ -62,6 +63,13 @@ class BooksList extends Component {
         {this.displayShelf(currentlyReading, 'Curently Reading')}
         {this.displayShelf(wantToRead, 'Want to Read')}
         {this.displayShelf(read, 'Read')}
+        <div className="open-search">
+          <Link
+            to="/search"
+        >
+        Search online
+          </Link>
+        </div>
       </BookShelf>
     );
   }
