@@ -1,52 +1,67 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import * as BooksAPI from './BooksAPI';
 import Book from './Book.js';
+import * as BooksAPI from './BooksAPI';
 
 
 
 
 class BooksList extends Component {
   state = {
-    books: [],
-    searchItems: [],
+    currentlyReading: [],
+    wantToRead: [],
+    read: [],
   }
 
-  async componentDidMount() {
-    try {
-      BooksAPI.getAll().then((books) => {
-        this.setState({
-          books,
-        });
-        console.log(this.state.books);
+  componentDidMount() {
+    this.importBooks();
+    console.log(this.state);
+  }
+
+  importBooks() {
+    BooksAPI.getAll().then((books) => {
+      const currentlyReading = books.filter(book => book.shelf === 'currentlyReading');
+      const wantToRead = books.filter(book => book.shelf === 'wantToRead');
+      const read = books.filter(book => book.shelf === 'read');
+      this.setState({
+        currentlyReading,
+        wantToRead,
+        read,
       });
-    } catch (e) {
-      console.log(e);
-    }
+    });
   }
 
-  render() {
+  updateBook(book, shelf) {
+    BooksAPI.update(book, shelf).then(() => this.importBooks());
+  }
+
+  displayShelf(books, title) {
     return (
       <BookShelf>
         <Shelv>
           <ShelvTitle>
-          Currently Reading
+            {title}
           </ShelvTitle>
-          {this.state.books.filter(book => book.shelf === 'currentlyReading').map(book => <Book key={book.id} book={book} />)}
+          {books.map((book, index) => (
+            <Book
+              key={index}
+              book={book}
+              updateBook={this.updateBook.bind(this)}
+          />
+          ))}
         </Shelv>
-        <Shelv>
-          <ShelvTitle>
-          Want To Read
-          </ShelvTitle>
-          {this.state.books.filter(book => book.shelf === 'wantToRead').map(book => <Book key={book.id} book={book} />)}
-        </Shelv>
-        <Shelv>
-          <ShelvTitle>
-          Read
-          </ShelvTitle>
-          {this.state.books.filter(book => book.shelf === 'read').map(book => <Book key={book.id} book={book} />)}
-        </Shelv>
+      </BookShelf>
+    );
+  }
 
+  render() {
+    const { currentlyReading, wantToRead, read } = this.state;
+
+    return (
+      <BookShelf>
+        {this.displayShelf(currentlyReading, 'Curently Reading')}
+        {this.displayShelf(wantToRead, 'Want to Read')}
+        {this.displayShelf(read, 'Read')}
       </BookShelf>
     );
   }

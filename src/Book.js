@@ -1,70 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Select from 'react-select';
-import * as BooksAPI from './BooksAPI';
 
 
-class Book extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.shelf = { value: this.value };
-  }
-
-  moveShelf = (book, shelf) => {
-    BooksAPI.update(book, shelf)
-      .then(() => {
-        BooksAPI.getAll().then((books) => {
-          this.setState({
-            books,
-          });
-        });
-        console.log(this);
-      });
-  }
-
-  updateState(element) {
-    this.setState({ value: element });
-    console.log({ value: element });
-    BooksAPI.update(this.props.book.id, this.shelf);
-  }
-
-  render() {
-    const options = [
-      { value: 'wantToRead', label: 'Want to Read' },
-      { value: 'curentlyReading', label: 'Currently Reading' },
-      { value: 'read', label: 'Read' },
-    ];
-
-    const { book } = this.props;
-    return (
-      <MainWrapper>
-        <Cover>
-          <PosterImg src={book.imageLinks.thumbnail} alt={book.title} />
-          <Select
-            name="shelf-selector"
-            value={this.shelf.value}
-            options={options}
-            placeholder={this.shelf.value}
-            onChange={this.moveShelf}
-          />
-        </Cover>
-        <Content>
-          <p className="book-title">
-            {book.title}
-          </p>
-          <p className="book-authors">
+const Book = ({ book, updateBook }) => (
+  <MainWrapper>
+    <Cover>
+      <PosterImg src={book.imageLinks.thumbnail} alt={book.title} />
+      <select onChange={e => updateBook(book, e.target.value)} value={book.shelf}>
+        <option value="none" disabled>
+                Move to...
+            </option>
+        <option value="currentlyReading">
+                Currently Reading
+            </option>
+        <option value="wantToRead">
+                Want to Read
+            </option>
+        <option value="read">
+                Read
+            </option>
+        <option value="none">
+                None
+            </option>
+      </select>
+    </Cover>
+    <Content>
+      <p className="book-title">
+        {book.title}
+      </p>
+      <p className="book-authors">
           By
             '
-            {book.authors}
+        {book.authors}
             '
-          </p>
-        </Content>
-      </MainWrapper>
-    );
-  }
-}
+      </p>
+    </Content>
+  </MainWrapper>
+);
 
 
 export default Book;
