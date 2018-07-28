@@ -3,41 +3,48 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 
-const Book = ({ book, updateBook }) => (
-  <MainWrapper>
-    <Cover>
-      <PosterImg src={book.imageLinks.thumbnail} alt={book.title} />
-      <select onChange={e => updateBook(book, e.target.value)} value={book.shelf}>
-        <option value="none" disabled>
-                Move to...
-        </option>
-        <option value="currentlyReading">
-                Currently Reading
-        </option>
-        <option value="wantToRead">
-                Want to Read
-        </option>
-        <option value="read">
-                Read
-        </option>
-        <option value="none">
-                None
-        </option>
-      </select>
-    </Cover>
-    <Content>
-      <p className="book-title">
-        {book.title}
-      </p>
-      <p className="book-authors">
+const Book = ({ book, updateBook }) => {
+
+  const imgBookReal = book.imageLinks.thumbnail ? book.imageLinks.smallThumbnail : '';
+
+  return (
+    <MainWrapper>
+      <Cover>
+        <PosterImg src={imgBookReal} alt={book.title} />
+        <div className="book-shelf-changer">
+          <select onChange={e => updateBook(book, e.target.value)} value={book.shelf}>
+            <option value="none" disabled>
+                    Move to...
+            </option>
+            <option value="currentlyReading">
+                    Currently Reading
+            </option>
+            <option value="wantToRead">
+                    Want to Read
+            </option>
+            <option value="read">
+                    Read
+            </option>
+            <option value="none">
+                    None
+            </option>
+          </select>
+        </div>
+      </Cover>
+      <Content>
+        <p className="book-title">
+          {book.title}
+        </p>
+        <p className="book-authors">
           By
             '
-        {book.authors}
+          {book.authors}
             '
-      </p>
-    </Content>
-  </MainWrapper>
-);
+        </p>
+      </Content>
+    </MainWrapper>
+  );
+};
 
 
 export default Book;
@@ -75,4 +82,5 @@ export const Content = styled.div`
   padding: 0.5rem;
   background: #777;
   color: white;
+  overflow: hidden;
 `;

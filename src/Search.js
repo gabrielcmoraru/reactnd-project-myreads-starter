@@ -14,7 +14,7 @@ export default class Search extends Component {
     this.setState({ query });
   }
 
-  handleUpdateBook(book, shelf) {
+  updateBook(book, shelf) {
     BooksAPI.update(book, shelf);
   }
 
@@ -32,7 +32,7 @@ export default class Search extends Component {
           <Book
             key={index}
             book={book}
-            handleUpdateBook={this.handleUpdateBook.bind(this)}
+            updateBook={this.updateBook.bind(this)}
           />
         ));
     }
@@ -58,9 +58,9 @@ export default class Search extends Component {
           </div>
         </div>
         <div className="search-book-results" />
-        <div>
+        <ol className="books-grid">
           {this.renderSearch()}
-        </div>
+        </ol>
       </div>
     );
   }

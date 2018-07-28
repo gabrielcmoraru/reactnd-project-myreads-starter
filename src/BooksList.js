@@ -16,7 +16,6 @@ class BooksList extends Component {
 
   componentDidMount() {
     this.importBooks();
-    console.log(this.state);
   }
 
   importBooks() {
@@ -24,11 +23,13 @@ class BooksList extends Component {
       const currentlyReading = books.filter(book => book.shelf === 'currentlyReading');
       const wantToRead = books.filter(book => book.shelf === 'wantToRead');
       const read = books.filter(book => book.shelf === 'read');
+
       this.setState({
         currentlyReading,
         wantToRead,
         read,
       });
+      console.log(this.state.currentlyReading);
     });
   }
 

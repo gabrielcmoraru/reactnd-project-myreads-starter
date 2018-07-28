@@ -110,7 +110,7 @@ body, .app {
   list-style-type: none;
   padding: 0;
   margin: 0;
-
+  padding: 100px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -129,6 +129,10 @@ body, .app {
 }
 .book-title {
   margin-top: 10px;
+  white-space: wrap;
+  height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .book-authors {
   color: rgb(215, 255, 141);
@@ -157,34 +161,14 @@ body, .app {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
-.react-select__control{
-  background: #222;
-  color:white;
-}
-.react-select__value-container {
-  background: #222;
-  color:white;
-}
-.react-select__indicators {
-  background: #222;
-  color:white;
-}
-.react-select__menu {
-  background: #222;
-  color:white;
-}
-.react-select__menu-list {
-  background: #222;
-  color:white;
-}
-.react-select__option {
-  background: #222;
+.state-select {
+  background: green;
   color:white;
 }
 
-.react-select__option:hover {
-  background: #222;
-  color:white;
+.state-select:hover {
+  background: teal;
+  color:gold;
 }
 
 .book-shelf-changer select {
