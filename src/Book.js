@@ -12,7 +12,7 @@ const Book = ({ book, updateBook }) => {
     <MainWrapper>
       <Cover>
         <PosterImg src={bookImgReal} alt={book.title} />
-        <div className="book-shelf-changer">
+        <div className="custom-dropdown small">
           <select onChange={e => updateBook(book, e.target.value)} value={book.shelf}>
             <option value="none" disabled>
                     Move to...
@@ -58,8 +58,8 @@ Book.propTypes = {
 
 export const MainWrapper = styled.div`
   display:flex;
-  width: 270px;
-  justify-content: center;
+  width: 300px;
+  height: 200px;
   align-self: center;
   justify-self: center;
   box-shadow: 0 0 35px;
@@ -67,8 +67,8 @@ export const MainWrapper = styled.div`
 `;
 
 export const PosterImg = styled.img`
-  height: 170px;
-  width: 135px;
+  height: 173px;
+  width: 140px;
 `;
 
 export const Cover = styled.div`

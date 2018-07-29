@@ -39,20 +39,18 @@ class BooksList extends Component {
 
   displayShelf(books, title) {
     return (
-      <BookShelf>
-        <Shelv>
-          <ShelvTitle>
-            {title}
-          </ShelvTitle>
-          {books.map((book, index) => (
-            <Book
-              key={index}
-              book={book}
-              updateBook={this.updateBook.bind(this)}
+      <Shelv>
+        <ShelvTitle>
+          {title}
+        </ShelvTitle>
+        {books.map((book, index) => (
+          <Book
+            key={index}
+            book={book}
+            updateBook={this.updateBook.bind(this)}
           />
-          ))}
-        </Shelv>
-      </BookShelf>
+        ))}
+      </Shelv>
     );
   }
 
@@ -60,18 +58,23 @@ class BooksList extends Component {
     const { currentlyReading, wantToRead, read } = this.state;
 
     return (
-      <BookShelf>
-        {this.displayShelf(currentlyReading, 'Curently Reading')}
-        {this.displayShelf(wantToRead, 'Want to Read')}
-        {this.displayShelf(read, 'Read')}
-        <div className="open-search">
-          <Link
-            to="/search"
+      <div>
+        <h1>
+        - THE LIBRARY -
+        </h1>
+        <BookShelf>
+          {this.displayShelf(currentlyReading, 'Curently Reading')}
+          {this.displayShelf(wantToRead, 'Want to Read')}
+          {this.displayShelf(read, 'Read')}
+          <div className="open-search">
+            <Link
+              to="/search"
         >
         Search online
-          </Link>
-        </div>
-      </BookShelf>
+            </Link>
+          </div>
+        </BookShelf>
+      </div>
     );
   }
 }
