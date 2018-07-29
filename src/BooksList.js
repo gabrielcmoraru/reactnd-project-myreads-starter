@@ -81,9 +81,10 @@ export default BooksList;
 const BookShelf = styled.div`
   display: grid;
   padding: 1rem;
-  justifyContent: top;
-  grid-template-columns: repeat(3, 1fr);
-  grid-row-gap: 1rem;
+  justify-content: space-evenly;
+  align-content: top;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 390px) );
+  grid-row-gap: 2rem;
 `;
 
 const Shelv = styled.div`
