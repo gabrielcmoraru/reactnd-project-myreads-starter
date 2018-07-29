@@ -5,12 +5,13 @@ import styled from 'styled-components';
 
 const Book = ({ book, updateBook }) => {
 
-  const imgBookReal = book.imageLinks.thumbnail ? book.imageLinks.smallThumbnail : '';
+  const bookImgReal = book.imageLinks ? book.imageLinks.smallThumbnail : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png';
+  const bookAuthorReal = book.authors ? book.authors : 'Unknown Authors';
 
   return (
     <MainWrapper>
       <Cover>
-        <PosterImg src={imgBookReal} alt={book.title} />
+        <PosterImg src={bookImgReal} alt={book.title} />
         <div className="book-shelf-changer">
           <select onChange={e => updateBook(book, e.target.value)} value={book.shelf}>
             <option value="none" disabled>
@@ -38,7 +39,7 @@ const Book = ({ book, updateBook }) => {
         <p className="book-authors">
           By
             '
-          {book.authors}
+          {bookAuthorReal}
             '
         </p>
       </Content>
