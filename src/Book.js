@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Overdrive from 'react-overdrive';
 
 const Book = ({
   book, currentShelf, moveShelf,
@@ -11,11 +12,12 @@ const Book = ({
   const bookAuthorReal = book.authors ? book.authors : 'Unknown Authors';
 
   return (
-    <MainWrapper>
-      <Cover>
-        <PosterImg src={bookImgReal} alt={book.title} />
-        <div className="custom-dropdown small">
-          <select
+    <Overdrive id={book.id}>
+      <MainWrapper>
+          <Cover>
+          <PosterImg src={bookImgReal} alt={book.title} />
+          <div className="custom-dropdown small">
+            <select
             onChange={event => moveShelf(
               book, event.target.value)}
             value={currentShelf}
@@ -36,20 +38,21 @@ const Book = ({
                     None
             </option>
           </select>
-        </div>
-      </Cover>
-      <Content>
+          </div>
+        </Cover>
+          <Content>
         <p className="book-title">
-          {book.title}
-        </p>
+            {book.title}
+          </p>
         <p className="book-authors">
           By
             '
-          {bookAuthorReal}
+            {bookAuthorReal}
             '
-        </p>
+          </p>
       </Content>
-    </MainWrapper>
+        </MainWrapper>
+    </Overdrive>
   );
 };
 

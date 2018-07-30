@@ -42,7 +42,7 @@ export default class Search extends Component {
         */}
           {this.state.searchResults.length > 0
         && this.state.searchResults.map((searchResult) => {
-          let shelf;
+          let shelf = 'none';
           this.props.books.map(book => (
             book.id === searchResult.id
               ? shelf = book.shelf
