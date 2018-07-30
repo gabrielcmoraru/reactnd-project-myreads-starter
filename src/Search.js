@@ -9,13 +9,11 @@ export default class Search extends Component {
     query: '',
   };
 
+  /* Call Search API using the input query, if result is found add to searchResults otherwise empty the array */
   handleQueryControl(query) {
     BooksAPI.search(query).then(searchResults => (searchResults ? this.setState({ searchResults }) : []));
+    /* Update query string on each input */
     this.setState({ query });
-  }
-
-  updateBook(book, shelf) {
-    BooksAPI.update(book, shelf);
   }
 
   render() {
@@ -39,9 +37,12 @@ export default class Search extends Component {
         </div>
         <div className="search-book-results" />
         <ol className="books-grid">
+          {/* When the results for the search is bigger than 0 display results;
+          Map over results check against the books saved in the props if a shelf value is found asign to book if not leave empty;
+        */}
           {this.state.searchResults.length > 0
         && this.state.searchResults.map((searchResult) => {
-          let shelf = 'none';
+          let shelf;
           this.props.books.map(book => (
             book.id === searchResult.id
               ? shelf = book.shelf

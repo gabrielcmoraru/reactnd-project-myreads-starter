@@ -8,19 +8,26 @@ import * as BooksAPI from './BooksAPI';
 import './App.css';
 
 class BooksApp extends React.Component {
-
   state = {
     books: [],
   }
 
+  /* On load call importBooks() */
   componentDidMount() {
+    this.importBooks();
+  }
+
+  /* GET books from API the add them to the state  */
+  importBooks() {
     BooksAPI.getAll().then((books) => {
       this.setState({
         books,
       });
+      console.log(this.state.books);
     });
   }
 
+  /* Update shelf state on the database using the API on the selected book  */
   updateBook = (book, shelf) => {
     BooksAPI.update(book, shelf).then(() => {
       BooksAPI.getAll().then((books) => {
@@ -32,7 +39,8 @@ class BooksApp extends React.Component {
     });
   }
 
-/*eslint-disable */
+  /*eslint-disable */
+  /* Export using the Router props to use in different components */
   render() {
     return (
     <div className="app">
@@ -60,7 +68,6 @@ class BooksApp extends React.Component {
         }/>
     </div>);
   }
-/* eslint-enable */
 }
 
 

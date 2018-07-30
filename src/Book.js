@@ -1,13 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-
 const Book = ({
-  book, updateBook, currentShelf, moveShelf,
+  book, currentShelf, moveShelf,
 }) => {
 
+  /* Check if image exists for specific book if not replace with a stock pic */
   const bookImgReal = book.imageLinks ? book.imageLinks.smallThumbnail : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png';
+  /* Check if authors exists for specific book if not show "Unknown Authors" */
   const bookAuthorReal = book.authors ? book.authors : 'Unknown Authors';
 
   return (
@@ -53,14 +53,7 @@ const Book = ({
   );
 };
 
-
 export default Book;
-
-Book.propTypes = {
-  book: PropTypes.shape({
-    title: PropTypes.string.isRequired,
-  }).isRequired,
-};
 
 export const MainWrapper = styled.div`
   display:flex;

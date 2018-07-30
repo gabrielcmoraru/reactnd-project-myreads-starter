@@ -10,10 +10,12 @@ class BooksList extends Component {
     books: [],
   }
 
+  /* On load call importBooks() */
   componentDidMount() {
     this.importBooks();
   }
 
+  /* Update shelf state on the database using the API on the selected book   */
   updateBook = (book, shelf) => {
     BooksAPI.update(book, shelf).then(() => {
       BooksAPI.getAll().then((books) => {
@@ -24,6 +26,7 @@ class BooksList extends Component {
     });
   }
 
+  /* GET books from API the add them to the state  */
   importBooks() {
     BooksAPI.getAll().then((books) => {
       this.setState({
@@ -33,28 +36,6 @@ class BooksList extends Component {
     });
   }
 /*eslint-disable */
-
-  // displayShelf(title, shelfName) {
-  //   return (
-  //     <Shelv>
-  //       <ShelvTitle>
-  //         {title}
-  //       </ShelvTitle>
-  //       {
-  //       this.state.books
-  //         .filter(book => book.shelf === `${shelfName}`)
-  //         .map(book => (
-  //           <Book
-  //             key={book.id}
-  //             book={book}
-  //             currentShelf={shelfName}
-  //             moveShelf={this.updateBook.bind(this)}
-  //           />
-  //         ))
-  //       }
-  //     </Shelv>
-  //   );
-  // }
 
   render() {
     const {
@@ -67,7 +48,6 @@ class BooksList extends Component {
         - THE LIBRARY -
         </h1>
         <BookShelf>
-          {/* {this.displayShelf('Currently Reading', currentlyReading)} */}
           <Shelv>
             <ShelvTitle>
              Currently Reading
