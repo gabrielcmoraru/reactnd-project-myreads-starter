@@ -1,61 +1,65 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Book from './Book.js';
+import Book from './Book';
 import * as BooksAPI from './BooksAPI';
-
-
 
 
 class BooksList extends Component {
   state = {
-    currentlyReading: [],
-    wantToRead: [],
-    read: [],
+    books: [],
   }
 
   componentDidMount() {
     this.importBooks();
   }
 
-  importBooks() {
-    BooksAPI.getAll().then((books) => {
-      const currentlyReading = books.filter(book => book.shelf === 'currentlyReading');
-      const wantToRead = books.filter(book => book.shelf === 'wantToRead');
-      const read = books.filter(book => book.shelf === 'read');
-
-      this.setState({
-        currentlyReading,
-        wantToRead,
-        read,
+  updateBook = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(() => {
+      BooksAPI.getAll().then((books) => {
+        this.setState({
+          books,
+        });
       });
-      console.log(this.state.currentlyReading);
     });
   }
 
-  updateBook(book, shelf) {
-    BooksAPI.update(book, shelf).then(() => this.importBooks());
+  importBooks() {
+    BooksAPI.getAll().then((books) => {
+      this.setState({
+        books,
+      });
+      console.log(this.state.books);
+    });
   }
+/*eslint-disable */
 
-  displayShelf(books, title) {
-    return (
-      <Shelv>
-        <ShelvTitle>
-          {title}
-        </ShelvTitle>
-        {books.map((book, index) => (
-          <Book
-            key={index}
-            book={book}
-            updateBook={this.updateBook.bind(this)}
-          />
-        ))}
-      </Shelv>
-    );
-  }
+  // displayShelf(title, shelfName) {
+  //   return (
+  //     <Shelv>
+  //       <ShelvTitle>
+  //         {title}
+  //       </ShelvTitle>
+  //       {
+  //       this.state.books
+  //         .filter(book => book.shelf === `${shelfName}`)
+  //         .map(book => (
+  //           <Book
+  //             key={book.id}
+  //             book={book}
+  //             currentShelf={shelfName}
+  //             moveShelf={this.updateBook.bind(this)}
+  //           />
+  //         ))
+  //       }
+  //     </Shelv>
+  //   );
+  // }
 
   render() {
-    const { currentlyReading, wantToRead, read } = this.state;
+    const {
+      books, currentlyReading, wantToRead, read, moveShelf,
+    } = this.props;
 
     return (
       <div>
@@ -63,14 +67,63 @@ class BooksList extends Component {
         - THE LIBRARY -
         </h1>
         <BookShelf>
-          {this.displayShelf(currentlyReading, 'Curently Reading')}
-          {this.displayShelf(wantToRead, 'Want to Read')}
-          {this.displayShelf(read, 'Read')}
+          {/* {this.displayShelf('Currently Reading', currentlyReading)} */}
+          <Shelv>
+            <ShelvTitle>
+             Currently Reading
+            </ShelvTitle>
+            {
+            this.state.books
+              .filter(book => book.shelf === 'currentlyReading')
+              .map(book => (
+                <Book
+                  key={book.id}
+                  book={book}
+                  currentShelf="currentlyReading"
+                  moveShelf={this.updateBook.bind(this)}
+                />
+              ))
+            }
+          </Shelv>
+          <Shelv>
+            <ShelvTitle>
+            Want to Read
+            </ShelvTitle>
+            {
+            this.state.books
+              .filter(book => book.shelf === 'wantToRead')
+              .map(book => (
+                <Book
+                  key={book.id}
+                  book={book}
+                  currentShelf="wantToRead"
+                  moveShelf={this.updateBook.bind(this)}
+                />
+              ))
+            }
+          </Shelv>
+          <Shelv>
+            <ShelvTitle>
+            Read
+            </ShelvTitle>
+            {
+            this.state.books
+              .filter(book => book.shelf === 'read')
+              .map(book => (
+                <Book
+                  key={book.id}
+                  book={book}
+                  currentShelf="read"
+                  moveShelf={this.updateBook.bind(this)}
+                />
+              ))
+            }
+          </Shelv>
           <div className="open-search">
             <Link
               to="/search"
-        >
-        Search online
+            >
+            Search online
             </Link>
           </div>
         </BookShelf>
@@ -78,6 +131,7 @@ class BooksList extends Component {
     );
   }
 }
+/* eslint-enable */
 
 export default BooksList;
 

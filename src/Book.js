@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 
-const Book = ({ book, updateBook }) => {
+const Book = ({
+  book, updateBook, currentShelf, moveShelf,
+}) => {
 
   const bookImgReal = book.imageLinks ? book.imageLinks.smallThumbnail : 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png';
   const bookAuthorReal = book.authors ? book.authors : 'Unknown Authors';
@@ -13,7 +15,11 @@ const Book = ({ book, updateBook }) => {
       <Cover>
         <PosterImg src={bookImgReal} alt={book.title} />
         <div className="custom-dropdown small">
-          <select onChange={e => updateBook(book, e.target.value)} value={book.shelf}>
+          <select
+            onChange={event => moveShelf(
+              book, event.target.value)}
+            value={currentShelf}
+          >
             <option value="none" disabled>
                     Move to...
             </option>

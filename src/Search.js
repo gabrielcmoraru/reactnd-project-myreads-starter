@@ -5,37 +5,17 @@ import * as BooksAPI from './BooksAPI';
 
 export default class Search extends Component {
   state = {
-    books: [],
+    searchResults: [],
     query: '',
   };
 
   handleQueryControl(query) {
-    BooksAPI.search(query).then(books => (books ? this.setState({ books }) : []));
+    BooksAPI.search(query).then(searchResults => (searchResults ? this.setState({ searchResults }) : []));
     this.setState({ query });
   }
 
   updateBook(book, shelf) {
     BooksAPI.update(book, shelf);
-  }
-
-  renderSearch() {
-    const { books, query } = this.state;
-
-    if (query) {
-      return books.error
-        ? (
-          <div>
-        No results found
-          </div>
-        )
-        : books.map((book, index) => (
-          <Book
-            key={index}
-            book={book}
-            updateBook={this.updateBook.bind(this)}
-          />
-        ));
-    }
   }
 
   render() {
@@ -59,7 +39,25 @@ export default class Search extends Component {
         </div>
         <div className="search-book-results" />
         <ol className="books-grid">
-          {this.renderSearch()}
+          {this.state.searchResults.length > 0
+        && this.state.searchResults.map((searchResult) => {
+          let shelf = 'none';
+          this.props.books.map(book => (
+            book.id === searchResult.id
+              ? shelf = book.shelf
+              : ''
+          ));
+          return (
+            <Book
+              key={searchResult.id}
+              book={searchResult}
+              moveShelf={
+                this.props.moveShelf
+              }
+              currentShelf={shelf}
+              />
+          );
+        })}
         </ol>
       </div>
     );
