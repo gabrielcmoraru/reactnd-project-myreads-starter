@@ -14,6 +14,7 @@ export default class Search extends Component {
     BooksAPI.search(query).then(searchResults => (searchResults ? this.setState({ searchResults }) : []));
     /* Update query string on each input */
     this.setState({ query });
+    this.setState({ searchResults: [] });
   }
 
   render() {
@@ -46,7 +47,7 @@ export default class Search extends Component {
           this.props.books.map(book => (
             book.id === searchResult.id
               ? shelf = book.shelf
-              : ''
+              : 'None'
           ));
           return (
             <Book

@@ -14,44 +14,41 @@ const Book = ({
   return (
     <Overdrive id={book.id}>
       <MainWrapper>
-          <Cover>
-          <PosterImg src={bookImgReal} alt={book.title} />
-          <div className="custom-dropdown small">
+        <Cover>
+            <PosterImg src={bookImgReal} alt={book.title} />
+            <div className="custom-dropdown small">
             <select
-            onChange={event => moveShelf(
+              onChange={event => moveShelf(
               book, event.target.value)}
-            value={currentShelf}
+              value={currentShelf}
           >
-            <option value="none" disabled>
-                    Move to...
-            </option>
-            <option value="currentlyReading">
+              <option value="currentlyReading">
                     Currently Reading
             </option>
-            <option value="wantToRead">
+              <option value="wantToRead">
                     Want to Read
             </option>
-            <option value="read">
+              <option value="read">
                     Read
             </option>
-            <option value="none">
+              <option value="none">
                     None
             </option>
-          </select>
+            </select>
           </div>
-        </Cover>
-          <Content>
-        <p className="book-title">
-            {book.title}
-          </p>
-        <p className="book-authors">
+          </Cover>
+        <Content>
+            <p className="book-title">
+          {book.title}
+        </p>
+            <p className="book-authors">
           By
             '
-            {bookAuthorReal}
+          {bookAuthorReal}
             '
-          </p>
-      </Content>
-        </MainWrapper>
+        </p>
+          </Content>
+      </MainWrapper>
     </Overdrive>
   );
 };
